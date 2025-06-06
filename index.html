@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quiz Game</title>
+</head>
+<body>
+    
+    <main>
+        <h1>Quiz Game</h1>
+
+        <section class="d1">
+
+            <!-- Mainmenu -->
+            <div class="mainMenu">
+                <label for="name">Enter your Name</label>
+                <input type="text" id="playername">
+
+                <button id="enternamebutton">Enter</button>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading hide">
+                <label for="">Loading</label>
+                <div class="visualloading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <!-- Topic -->
+            <div class="topics hide">
+                <h2>Pick a Topic</h2>
+
+                <nav id="alltopics">
+                    <!-- <button>Mathematics</button>
+                    <button>English</button>
+                    <button>Science</button> -->
+                </nav>
+            </div>
+
+            <!-- display question -->
+            <div class="quizdisplay hide">
+                <h3 id="question">1. What is the Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus repellendus eligendi neque at cupiditate. Laudantium labore, alias voluptatum consequatur cumque quia? Quibusdam ipsa nobis sit perspiciatis? Possimus sed deserunt itaque.</h3>
+                
+                <section class="choices">
+                    <div>a. 1</div>
+                    <div>b. 1</div>
+                    <div>c. 1</div>
+                    <div>d. 1</div>
+                </section>
+            </div>
+
+            <!-- leaderboards -->
+            <div class="leaderboards hide">
+                <h3>Leaderboards</h3>
+                <div class="tableholder">
+                    <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80%;">Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Joseph</td>
+                            <td>10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <button>Back</button>
+            </div>
+        </section>
+    </main>
+</body>
+<script src="app.js"></script>
+</html>
