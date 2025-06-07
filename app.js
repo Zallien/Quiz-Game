@@ -1,5 +1,8 @@
 
 let FetchedGamedata
+let newdata
+let newID = ''
+let editindex = undefined
 
 // fetch data from localstorage
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -12,7 +15,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     console.log('No Data')
   }
   else{
-    FetchedGamedata = QuizgameData
+    FetchedGamedata = JSON.parse(QuizgameData)
+    console.log(FetchedGamedata)
   }
 })
 
@@ -20,14 +24,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
 function nameInsertion(name){
   let date = new Date()
 
-  let data = {
+  newdata = {
     Name : name,
     Score : 0,
+    PageNo : 1,
+    Subject : '',
+    ID : `Test-${new Date().getTime()}`,
+    SetofQuestion : [],
     Date : `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }
 
-  FetchedGamedata.Scores.push(data)
-  console.log(FetchedGamedata)
+  newID = newdata.ID
+  FetchedGamedata.Scores.push(newdata)
+
+  //pushes to localstorage
+  localStorage.setItem('QuizgameData', JSON.stringify(FetchedGamedata))
+  console.log(newdata)
 }
 
 const Entername = document.getElementById('enternamebutton');
@@ -36,6 +48,7 @@ const Name = document.getElementById('playername');
 const Nameinsertionpanel = document.querySelector('.mainMenu');
 const Loadingpanel = document.querySelector('.loading');
 const topicspanel = document.querySelector('.topics');
+const displayquestions = document.querySelector('.quizdisplay');
 
 //add a name 
 Entername.addEventListener('click', ()=>{
@@ -47,6 +60,7 @@ Entername.addEventListener('click', ()=>{
     nameInsertion(Name.value)
     Nameinsertionpanel.classList.add('hide')
     Loadingpanel.classList.remove('hide')
+
     setTimeout(()=>{
       Loadingpanel.classList.add('hide')
       topicspanel.classList.remove('hide')
@@ -507,17 +521,41 @@ let scienceQuizQuestions = [
 const topics = ['Mathematics', 'Science', 'English']
 const navfortopics = document.getElementById('alltopics');
 
+
+
+//populate topics
 function populatetopics(){
-  let buttonsfornav = ''
+  let buttonsfornav = '';
 
   topics.forEach(e => {
-    buttonsfornav += `<button>${e}</button>`
+    buttonsfornav += `<button class='buttontopics' data-topic="${e}">${e}</button>`;
   });
 
-  navfortopics.innerHTML = buttonsfornav
+  navfortopics.innerHTML = buttonsfornav;
+  let buttontopics = document.querySelectorAll('.buttontopics');
+
+  //topic buttons functions
+  buttontopics.forEach(element => {
+    
+    element.addEventListener('click', (e)=>{
+      let topic = element.dataset.topic
+      
+      let setofquestion = pickedtopic(topic)
+      editindex = getindex(newID)
+      console.log(editindex)
+
+      //setting up the questions
+      FetchedGamedata.Scores[editindex].SetofQuestion = setofquestion
+
+      topicspanel.classList.add('hide')
+      Loadingpanel.classList.remove('hide')
+      setTimeout(() => {
+        Loadingpanel.classList.add('hide')
+        readallquestions()
+      }, 2000);
+    })
+  });
 }
-
-
 
 //get the picked topic
 function pickedtopic(topicpicked){
@@ -536,8 +574,8 @@ function pickedtopic(topicpicked){
       [pickedquestionarray[randindex],pickedquestionarray[i]] = 
         [pickedquestionarray[i],pickedquestionarray[randindex]]
     }
-    return pickedquestionarray
     
+    return pickedquestionarray
   }
   else if(picked == 'Science'){
     pickedquestionarray = scienceQuizQuestions
@@ -548,6 +586,7 @@ function pickedtopic(topicpicked){
       [pickedquestionarray[randindex],pickedquestionarray[i]] = 
         [pickedquestionarray[i],pickedquestionarray[randindex]]
     }
+    
     return pickedquestionarray
   }
   else if(picked == 'English'){
@@ -559,9 +598,99 @@ function pickedtopic(topicpicked){
       [pickedquestionarray[randindex],pickedquestionarray[i]] = 
         [pickedquestionarray[i],pickedquestionarray[randindex]]
     }
+    
     return pickedquestionarray
   }
 }
 
-console.log(pickedtopic('English'))
+//get the index based on the ID
+function getindex(id){
+
+  let index
+  
+  FetchedGamedata.Scores.forEach(function(val,ind){
+    let fetchedID = val.ID
+
+    if(fetchedID == id){
+      index = ind
+    }
+
+  })
+
+  console.log(index)
+  return index
+}
+
+const questionlabel = document.getElementById('question'); //question label
+const questionchoices = document.querySelector('.choices'); //choice section
+const finalscorepanel = document.querySelector('.finalscore'); //finalscore section
+const namefinalscore = document.querySelector('.fullname'); //finalscore section name
+const finalscorenum = document.querySelector('.score'); //finalscore section score
+
+//loading the set of questions
+function readallquestions(){
+
+  let pageNo = FetchedGamedata.Scores[editindex].PageNo
+  let allquestions = FetchedGamedata.Scores[editindex].SetofQuestion
+  let correctans = allquestions[pageNo].answer // correct answer
+
+  if(pageNo != 20){
+    //setting the question and choicesw
+    questionlabel.innerHTML = `${pageNo}. ${allquestions[pageNo].Question}`
+    let allchoices = ''
+    allquestions[pageNo].choices.forEach(e=>{
+      allchoices += `<div class='choicesbtns' data-answer="${e}" >${e}</div>`
+    })
+
+    questionchoices.innerHTML = allchoices
+    displayquestions.classList.remove('hide')
+    console.log(FetchedGamedata)
+
+    let choicesbtns = document.querySelectorAll('.choicesbtns')
+    let correctanswerdisplay = document.getElementById('correctans')
+
+    choicesbtns.forEach(e=>[
+
+      e.addEventListener('click', ()=>{
+        let answer = e.dataset.answer
+        if(answer == correctans){
+          FetchedGamedata.Scores[editindex].Score += 1
+          FetchedGamedata.Scores[editindex].PageNo += 1
+          correctanswerdisplay.innerHTML = `Correct Answer: ${correctans}`
+          correctanswerdisplay.style.color = "green"
+          correctanswerdisplay.classList.remove('hide')
+          setTimeout(() => {
+            correctanswerdisplay.classList.add('hide')
+            readallquestions()
+          }, 3500);
+        }
+        else{
+          FetchedGamedata.Scores[editindex].PageNo += 1
+          correctanswerdisplay.innerHTML = `Correct Answer: ${correctans}`
+          correctanswerdisplay.style.color = "red"
+          correctanswerdisplay.classList.remove('hide')
+          setTimeout(() => {
+            correctanswerdisplay.classList.add('hide')
+            readallquestions()
+          }, 3500);
+        }
+      })
+    ])
+  }else{
+    displayquestions.classList.add('hide')
+    namefinalscore.innerHTML = FetchedGamedata.Scores[editindex].Name
+    finalscorenum.innerHTML = `You Scored : ${FetchedGamedata.Scores[editindex].Score}`
+    finalscorepanel.classList.remove('hide')
+    localStorage.setItem('QuizgameData', JSON.stringify(FetchedGamedata))
+  }
+  
+}
+
+
+
+
+
+
+
+
 
