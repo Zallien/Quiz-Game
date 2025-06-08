@@ -99,6 +99,9 @@ main .d1 #leaderboardbutton{
     display: block;
     background-color: var(--secondary);
     position: relative;
+    width: fit-content;
+    margin-top: 10px;
+    background-color: white;
 }
 
 main .d1 #leaderboardbutton:hover{
