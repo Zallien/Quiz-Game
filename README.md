@@ -4,6 +4,7 @@ A dynamic, interactive quiz game built with JavaScript! Test your knowledge acro
 
 ## 📌 Features
 - Randomly shuffled questions
+- Using Localstorage
 - Interactive UI with instant feedback
 - Responsive design for desktop and mobile
 

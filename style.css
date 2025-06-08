@@ -196,8 +196,7 @@ main .d1 .quizdisplay{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 30%;
-    max-width: 50%;
+    width: 70%;
     position: absolute;
     border: thin solid white;
     padding: 10px 20px;
@@ -207,6 +206,7 @@ main .d1 .quizdisplay{
 
 main .d1 .quizdisplay #question{
     padding: 5px 0;
+    width: 100%;
 }
 
 main .d1 .quizdisplay .choices{
@@ -395,8 +395,7 @@ main .d1 .hide{
 
     /* questions */
     main .d1 .quizdisplay{
-        min-width: 50%;
-        max-width: 80%;
+        width: 90%;
         padding: 8px 15px;
     }
 

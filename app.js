@@ -668,7 +668,7 @@ function readallquestions(){
           setTimeout(() => {
             correctanswerdisplay.classList.add('hide')
             readallquestions()
-          }, 3500);
+          }, 3000);
         }
         else{
           FetchedGamedata.Scores[editindex].PageNo += 1
@@ -678,7 +678,7 @@ function readallquestions(){
           setTimeout(() => {
             correctanswerdisplay.classList.add('hide')
             readallquestions()
-          }, 3500);
+          }, 3000);
         }
       })
     ])
