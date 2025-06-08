@@ -88,26 +88,21 @@ main .d1 .mainMenu button:hover{
 }
 
 /* leaderboards */
-main .d1 #leaderboardbutton{
-    font-size: 20px;
-    font-weight: bold;
-    padding: 3px 10px;
-    border: thin solid white;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-    margin: 0 auto;
-    display: block;
-    background-color: var(--secondary);
-    position: relative;
+main .d1 .mainMenu #leaderboardbutton{
     width: fit-content;
-    margin-top: 10px;
-    background-color: white;
+    padding: 3px 10px;
+    margin: 10px auto;
+    display: block;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
 }
 
-main .d1 #leaderboardbutton:hover{
+main .d1 .mainMenu #leaderboardbutton:hover{
     scale: 1.08;
     box-shadow: 0 0 10px white,
-                0 0 15px gray;
+                0 0 15px darkgray;
 }
 
 /* Loading */
