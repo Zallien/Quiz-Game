@@ -8,4 +8,4 @@ A dynamic, interactive quiz game built with JavaScript! Test your knowledge acro
 - Responsive design for desktop and mobile
 
 ## 🚀 Getting Started
-1. Clone the repository:
+1. Clone the repository or Go to this link https://zallien.github.io/Quiz-Game/
