@@ -87,6 +87,26 @@ main .d1 .mainMenu button:hover{
     scale: 1.08;
 }
 
+/* leaderboards */
+main .d1 #leaderboardbutton{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border: thin solid white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    margin: 0 auto;
+    display: block;
+    background-color: var(--secondary);
+    position: relative;
+}
+
+main .d1 #leaderboardbutton:hover{
+    scale: 1.08;
+    box-shadow: 0 0 10px white,
+                0 0 15px gray;
+}
+
 /* Loading */
 main .d1 .loading{
     top: 50%;
@@ -231,7 +251,8 @@ main .d1 .leaderboards{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 500px;
+    min-height: 300px;
+    max-height: 400px;
     position: absolute;
     border: thin solid white;
     padding: 10px 20px;
@@ -329,6 +350,70 @@ main .d1 .finalscore button{
 
 main .d1 .hide{
     display: none;
+}
+
+@media only screen and (max-width: 600px){
+    
+    main h1{
+        font-size: 2rem;
+    }
+
+    /* mainmenu */
+    main .d1 .mainMenu label{
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    main .d1 .mainMenu input#playername{
+        font-size: 1rem;
+    }
+
+    main .d1 .mainMenu button{
+        font-size: 16px;
+        width: 100px;
+    }
+
+    /* leaderboads */
+    main .d1 #leaderboardbutton{
+        font-size: 16px;
+    }
+
+    main .d1 .leaderboards{
+        width: 90%;
+    }
+
+    main .d1 .leaderboards button{
+        font-size: 16px;
+    }
+
+    /* topics */
+    main .d1 .topics h2{
+        font-size: 1.2rem;
+    }
+
+    main .d1 .topics nav button{
+        font-size: 17px;
+    }
+
+    /* questions */
+    main .d1 .quizdisplay{
+        min-width: 50%;
+        max-width: 80%;
+        padding: 8px 15px;
+    }
+
+    main .d1 .quizdisplay #question{
+        font-size: 18px;
+    }
+
+    main .d1 .quizdisplay .choices div{
+        font-size: 16px;
+    }
+
+    /* finalscore */
+    main .d1 .finalscore{
+        width: 90%;
+    }
 }
 
 

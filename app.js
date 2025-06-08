@@ -6,6 +6,10 @@ let editindex = undefined
 
 // fetch data from localstorage
 document.addEventListener('DOMContentLoaded', ()=>{
+  fetchedgameDatabase()
+})
+
+function fetchedgameDatabase(){
   let QuizgameData = localStorage.getItem('QuizgameData')
   if(!QuizgameData){
     FetchedGamedata = {
@@ -18,7 +22,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     FetchedGamedata = JSON.parse(QuizgameData)
     console.log(FetchedGamedata)
   }
-})
+}
 
 //Name Insertion
 function nameInsertion(name){
@@ -64,6 +68,7 @@ Entername.addEventListener('click', ()=>{
     setTimeout(()=>{
       Loadingpanel.classList.add('hide')
       topicspanel.classList.remove('hide')
+      name.value = ''
       populatetopics()
     },2000)
   }
@@ -626,6 +631,7 @@ const questionchoices = document.querySelector('.choices'); //choice section
 const finalscorepanel = document.querySelector('.finalscore'); //finalscore section
 const namefinalscore = document.querySelector('.fullname'); //finalscore section name
 const finalscorenum = document.querySelector('.score'); //finalscore section score
+const newgamebutton = document.querySelector('.newtest'); //New test
 
 //loading the set of questions
 function readallquestions(){
@@ -634,7 +640,7 @@ function readallquestions(){
   let allquestions = FetchedGamedata.Scores[editindex].SetofQuestion
   let correctans = allquestions[pageNo].answer // correct answer
 
-  if(pageNo != 20){
+  if(pageNo <= 20){
     //setting the question and choicesw
     questionlabel.innerHTML = `${pageNo}. ${allquestions[pageNo].Question}`
     let allchoices = ''
@@ -686,6 +692,49 @@ function readallquestions(){
   
 }
 
+//new game button
+function Newgame(){
+  finalscorepanel.classList.add('hide')
+  Nameinsertionpanel.classList.remove('hide')
+  fetchedgameDatabase()
+}
+newgamebutton.addEventListener('click', ()=>{
+  Newgame()
+})
+
+//leaderboards
+const leaderboardbutton = document.getElementById('leaderboardbutton')
+const leaderboardcont = document.querySelector('.leaderboardcontainer')
+const leaderboardpanel = document.querySelector('.leaderboards')
+const backfromLB = document.querySelector('.backfromledearboards')
+
+async function fetchedanddisplayleaderboards(){
+
+  fetchedgameDatabase()
+  let gamedata = FetchedGamedata.Scores
+  let sortedgamedata = await gamedata.sort(function(a,b){return b.Score - a.Score })
+  let newgamedata = ''
+
+  sortedgamedata.forEach( e =>{
+    newgamedata +=`<tr>
+                    <td>${e.Name}</td>
+                    <td>${e.Score}</td>
+                  </tr>`
+  })
+
+  leaderboardcont.innerHTML = newgamedata
+  leaderboardpanel.classList.remove('hide')
+  console.log(sortedgamedata)
+
+}
+
+leaderboardbutton.addEventListener('click', ()=>{
+  fetchedanddisplayleaderboards()
+})
+
+backfromLB.addEventListener('click', ()=>{
+    leaderboardpanel.classList.add('hide')
+})
 
 
 
