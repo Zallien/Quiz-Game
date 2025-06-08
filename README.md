@@ -1,0 +1,11 @@
+# QuizMaster 🧠
+
+A dynamic, interactive quiz game built with JavaScript! Test your knowledge across various subjects like Math, Science, and English.
+
+## 📌 Features
+- Randomly shuffled questions
+- Interactive UI with instant feedback
+- Responsive design for desktop and mobile
+
+## 🚀 Getting Started
+1. Clone the repository:
